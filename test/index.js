@@ -1,4 +1,3 @@
-const requireInject = require('require-inject')
 const {posix, win32} = require('path')
 const path = {
   mode: posix,
@@ -6,9 +5,8 @@ const path = {
   resolve: (...args) => path.mode.resolve(...args),
 }
 
-const walkUp = requireInject('../', {path})
-
 const t = require('tap')
+const walkUp = t.mock('../', {path})
 
 t.test('posix', async t => {
   path.mode = posix
