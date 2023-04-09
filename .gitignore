@@ -1,7 +1,8 @@
 # ignore most things, include some others
 /*
 /.*
-
+!/tsconfig*.json
+!/src/
 !bin/
 !lib/
 !docs/

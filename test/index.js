@@ -6,7 +6,7 @@ const path = {
 }
 
 const t = require('tap')
-const walkUp = t.mock('../', {path})
+const { walkUp } = t.mock('../', {path})
 
 t.test('posix', async t => {
   path.mode = posix
