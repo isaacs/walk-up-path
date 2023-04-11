@@ -1,4 +1,4 @@
-const {posix, win32} = require('path')
+const { posix, win32 } = require('path')
 const path = {
   mode: posix,
   dirname: (...args) => path.mode.dirname(...args),
@@ -6,34 +6,31 @@ const path = {
 }
 
 const t = require('tap')
-const { walkUp } = t.mock('../', {path})
+const { walkUp } = t.mock('../', { path })
 
 t.test('posix', async t => {
   path.mode = posix
-  t.strictSame([...walkUp('/some/kinda/path')], [
-    '/some/kinda/path',
-    '/some/kinda',
-    '/some',
-    '/',
-  ])
+  t.strictSame(
+    [...walkUp('/some/kinda/path')],
+    ['/some/kinda/path', '/some/kinda', '/some', '/']
+  )
   t.strictSame([...walkUp('/')], ['/'])
-  t.strictSame([...walkUp('')], [...walkUp(process.cwd())])
+  t.strictSame(
+    [...walkUp('')],
+    [...walkUp(process.cwd().replace(/\\/g, '/'))]
+  )
 })
 
 t.test('win32', async t => {
   path.mode = win32
-  t.strictSame([...walkUp('c:\\some\\kinda\\path')], [
-    'c:\\some\\kinda\\path',
-    'c:\\some\\kinda',
-    'c:\\some',
-    'c:\\',
-  ])
-  t.strictSame([...walkUp('c:/some/kinda/path')], [
-    'c:\\some\\kinda\\path',
-    'c:\\some\\kinda',
-    'c:\\some',
-    'c:\\',
-  ])
+  t.strictSame(
+    [...walkUp('c:\\some\\kinda\\path')],
+    ['c:\\some\\kinda\\path', 'c:\\some\\kinda', 'c:\\some', 'c:\\']
+  )
+  t.strictSame(
+    [...walkUp('c:/some/kinda/path')],
+    ['c:\\some\\kinda\\path', 'c:\\some\\kinda', 'c:\\some', 'c:\\']
+  )
   t.strictSame([...walkUp('/')], [path.resolve(process.cwd(), '/')])
   t.strictSame([...walkUp('')], [...walkUp(process.cwd())])
 })
