@@ -1,12 +1,12 @@
-const { posix, win32 } = require('path')
+import { posix, win32 } from 'path'
 const path = {
   mode: posix,
   dirname: (...args) => path.mode.dirname(...args),
   resolve: (...args) => path.mode.resolve(...args),
 }
 
-const t = require('tap')
-const { walkUp } = t.mock('../', { path })
+import t from 'tap'
+const { walkUp } = await t.mockImport('../src/index.js', { path })
 
 t.test('posix', async t => {
   path.mode = posix
