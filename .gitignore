@@ -1,6 +1,7 @@
 # ignore most things, include some others
 /*
 /.*
+!LICENSE.md
 !/typedoc.json
 !/tsconfig*.json
 !/src/
